@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:innert="~{include/header::topHeader}"></div>
+<div th:replace="~{include/header::topHeader}"></div>
+
+hello,spring boot
+<h3 th:text="${message}">Hello,Spring boot</h3>
+<h3 th:text="${user.username}"></h3>
+<h3 th:text="${session.msg}"></h3>
+<h3 th:text="${param.q}"></h3>
+<h3 th:if="${user.username == 'lisi'}">Hello,LiSi</h3>
+<h3 th:unless="${user.username == 'jack'}">Hello,jack</h3>
+<ul th:switch="${user.username}">
+    <li th:case="'lisi'">lisi</li>
+    <li th:case="'wangwu'">wangwu</li>
+    <li th:case="*">sir</li>
+</ul>
+<ul>
+    <li th:each="name : ${usernameList}" th:text="${name}"></li>
+    <li th:each="name,iterStat : ${usernameList}" th:text="${iterStat.count + ' ' name}"></li>
+</ul>
+<input type="text" th:value="${user.name}">
+<h1 th:rel="${user.id}"></h1>
+<h1 th:attr="data-id=${user.id}"></h1>
+<a th:href="@{/user(id=${user.id})}"></a>
+<a th:href="@{/user/{id}/{name}(id=${user.id},name=${user.name})}"></a>
+
+<script th:inline="javascript">
+    var id = [[${user.id}]]
+</script>
+<script th:inline="javascript">
+    [# th:if="${user.name != null}"]
+    var id = [[${user.id}]]
+    [/]
+</script>
+<img th:src="@{'/image/timg.jpg'}">
+</body>
+</html>
